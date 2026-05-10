@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AstraJEE Cockpit</title>
+    <style>
+        body { font-family: -apple-system, sans-serif; background: #1a1a1a; color: white; padding: 20px; }
+        .card { background: #2a2a2a; padding: 20px; border-radius: 12px; max-width: 600px; margin: auto; }
+        button { background: #007bff; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; }
+        .timer { color: #ff4757; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>🚀 AstraJEE</h1>
+        <div id="status">Ready for Grand Test 1</div>
+        <div class="timer">Time Remaining: 180:00</div>
+        <hr>
+        <div id="question-box">
+            <p>Click below to generate your unique, no-repeat paper.</p>
+        </div>
+        <button onclick="startExam()">Start Exam</button>
+    </div>
+
+    <script>
+        async function startExam() {
+            document.getElementById('status').innerText = "Fetching unique questions...";
+            // We will link this to our Render URL in the next step
+            alert("Exam logic initialized! Ready to connect to backend.");
+        }
+    </script>
+</body>
+</html>
