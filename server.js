@@ -8,7 +8,7 @@ app.use(cors());
 app.use(express.json());
 
 // Initialize Database
-const db = new sqlite3.Database(':memory:'); // Using memory for now, can switch to file later
+const db = new sqlite3.Database('./database.sqlite'); // Using memory for now, can switch to file later
 
 db.serialize(() => {
   db.run("CREATE TABLE questions (id INTEGER, subject TEXT, topic TEXT, difficulty INTEGER, stem TEXT, answer TEXT)");
