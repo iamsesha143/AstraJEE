@@ -36,18 +36,27 @@ db.serialize(() => {
 
 // The "No-Repeat" Engine
 app.get('/api/generate-paper', (req, res) => {
-  const userId = 1; // Default for Abhay
-  const query = `
-    SELECT * FROM questions 
-    WHERE id NOT IN (SELECT question_id FROM user_history WHERE user_id = ?)
-    ORDER BY RANDOM() LIMIT 75`;
+  const userId = 1;
+  const count = req.query.limit || 75; // Default to 75, or take user input
+  const topic = req.query.topic; // Optional topic filter
 
-  db.all(query, [userId], (err, rows) => {
+  let query = `
+    SELECT * FROM questions 
+    WHERE id NOT IN (SELECT question_id FROM user_history WHERE user_id = ?)`;
+  
+  let params = [userId];
+
+  if (topic) {
+    query += ` AND topic = ?`;
+    params.push(topic);
+  }
+
+  query += ` ORDER BY RANDOM() LIMIT ?`;
+  params.push(parseInt(count));
+
+  db.all(query, params, (err, rows) => {
     if (err) return res.status(500).json({ error: err.message });
     res.json(rows);
   });
 });
 
-app.listen(port, () => {
-  console.log(`AstraJEE Server running on port ${port}`);
-});
